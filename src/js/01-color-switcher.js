@@ -1,7 +1,7 @@
 const refs = {
   start: document.querySelector('button[data-start]'),
   stop: document.querySelector('button[data-stop]'),
-  body: document.querySelector('body')
+  body: document.querySelector('body'),
 };
 
 class ColorSwitcher {
@@ -12,13 +12,23 @@ class ColorSwitcher {
   }
 
   changeColor() {
+    const isButtonActive = refs.stop.hasAttribute('disabled');
+    if (isButtonActive) {
+      refs.stop.removeAttribute('disabled', 'false');
+    }
+    refs.start.setAttribute('disabled', 'true');
     this.intervalId = setInterval(() => {
       const randomColor = this.getRandomHexColor();
-      refs.body.style.backgroundColor = randomColor; 
+      refs.body.style.backgroundColor = randomColor;
     }, 1000);
   }
 
   stopColorChange() {
+    const isButtonActive = refs.start.hasAttribute('disabled');
+    if (isButtonActive) {
+      refs.start.removeAttribute('disabled', 'false');
+    }
+    refs.stop.setAttribute('disabled', 'true');
     clearInterval(this.intervalId);
   }
 
